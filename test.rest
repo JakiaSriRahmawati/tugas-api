@@ -1,0 +1,42 @@
+### Register
+POST http://127.0.0.1:8000/api/register
+Content-Type: application/json
+
+{
+    "name": "jaq",
+    "email": "jaq@gmail.com",
+    "password": "999999999",
+    "password_confirmation": "999999999"
+}
+
+
+### Login
+POST http://127.0.0.1:8000/api/login
+Content-Type: application/json
+
+{
+    "email": "jaq@gmail.com",
+    "password": "999999999"
+}
+
+### Create Product
+POST http://127.0.0.1:8000/api/products
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI4MjYzNzY4LCJleHAiOjE3MjgyNjczNjgsIm5iZiI6MTcyODI2Mzc2OCwianRpIjoieWlnU0Y4S3p4YWJGR1lDNSIsInN1YiI6IjEzMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kMw-L6JalrpZjjFqdoeN1Ka0o8QEW2f_8-nMGDJkz2E
+
+{
+    "name": "gas",
+    "price": 20000
+}
+
+
+### Get Products 
+GET http://127.0.0.1:8000/api/products
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI4MjYzNzY4LCJleHAiOjE3MjgyNjczNjgsIm5iZiI6MTcyODI2Mzc2OCwianRpIjoieWlnU0Y4S3p4YWJGR1lDNSIsInN1YiI6IjEzMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kMw-L6JalrpZjjFqdoeN1Ka0o8QEW2f_8-nMGDJkz2E
+
+### Get Single Product 
+GET http://127.0.0.1:8000/api/products/63
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI4MjYzNzY4LCJleHAiOjE3MjgyNjczNjgsIm5iZiI6MTcyODI2Mzc2OCwianRpIjoieWlnU0Y4S3p4YWJGR1lDNSIsInN1YiI6IjEzMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kMw-L6JalrpZjjFqdoeN1Ka0o8QEW2f_8-nMGDJkz2E

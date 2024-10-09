@@ -24,26 +24,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-
         
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-    ]);
-
-    $userId = Auth::user()->id;
-
-    if (!$userId) {
-        return response()->json(['message' => 'Unauthenticated'], 401);
-    }
-
-    $product = Product::create([
-        'name' => $request->input('name'), 
-        'price' => $request->input('price'), 
-        'user_id' => $userId, // user_id dari user yang login
-    ]);
-
-    return response()->json($product, 201); 
     }
 
     /**
@@ -51,7 +32,25 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-    //
+        {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'price' => 'required|numeric',
+            ]);
+        
+            $userId = Auth::user()->id;
+        
+            if (!$userId) {
+                return response()->json(['message' => 'Unauthenticated'], 401);
+            }
+        
+            $product = Product::create([
+                'name' => $request->input('name'), 
+                'price' => $request->input('price'), 
+                'user_id' => $userId, 
+            ]);
+            return response()->json($product, 201); 
+            }
     }
 
 
@@ -59,20 +58,16 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-{
-    // Ambil data produk berdasarkan ID
+    {
     $product = Product::find($id);
 
-    // Cek apakah produk ditemukan
-    if (!$product) {
-        return response()->json([
-            'message' => 'Product not found'
-        ], 404);
+    if ($product->user_id !== Auth::user()->id) {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 
-    // Mengembalikan data produk dalam format JSON
-    return response()->json($product, 200);
-}
+    return response()->json($product);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

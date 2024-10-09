@@ -32,7 +32,7 @@ Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/products', [ProductController::class, 'create']);  
+    Route::post('/products', [ProductController::class, 'store']);  
     Route::get('/products', [ProductController::class, 'index']);   
     Route::get('/products/{id}', [ProductController::class, 'show']); 
 }); 
