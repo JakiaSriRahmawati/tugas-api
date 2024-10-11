@@ -17,9 +17,9 @@ export const options = {
     scenarios: {
         my_scenario: {
             executor: 'constant-vus', 
-            vus: 19,                 
-            duration: '1m',         
-            gracefulStop: '20s',    
+            vus: 20,                 
+            duration: '2m',         
+            gracefulStop: '10s',    
         },
     },
     thresholds: {
@@ -42,16 +42,20 @@ export default function () {
     const uniqueTimestamp = Math.floor(Date.now() / 1000); 
 
     const registerPayload = JSON.stringify({
-        name: `dina${userId}`,
-        email: `dina${userId}_${uniqueTimestamp}@gmail.com`, 
-        password: "87654321",
-        password_confirmation: "87654321",
+        name: `loli${userId}`,
+        email: `loli${userId}_${uniqueTimestamp}@gmail.com`, 
+        password: "dewil321",
+        password_confirmation: "dewil321",
     });
+
+    console.log(`Registering user: jebred${userId}`);
 
     const registerRes = http.post(`${BASE_URL}/register`, registerPayload, {
         headers: { 'Content-Type': 'application/json' },
-        timeout: '60s',
+        timeout: '50s',
     });
+
+    console.log(`Register response for VU ${userId}: ${registerRes.status} - ${registerRes.body}`);
 
     registerResponseTime.add(registerRes.timings.duration);
 
@@ -66,14 +70,18 @@ export default function () {
     }
 
     const loginPayload = JSON.stringify({
-        email: `dina${userId}_${uniqueTimestamp}@gmail.com`, 
-        password: "87654321",
+        email: `loli${userId}_${uniqueTimestamp}@gmail.com`, 
+        password: "dewil321",
     });
+
+    console.log(`Logging in user: jebred${userId}_${uniqueTimestamp}@gmail.com`);
 
     const loginRes = http.post(`${BASE_URL}/login`, loginPayload, {
         headers: { 'Content-Type': 'application/json' },
         timeout: '60s',
     });
+
+    console.log(`Login response for VU ${userId}: ${loginRes.status} - ${loginRes.body}`);
 
     loginResponseTime.add(loginRes.timings.duration);
 
@@ -95,17 +103,21 @@ export default function () {
 
     for (let i = 1; i <= 3; i++) {
         const productPayload = JSON.stringify({
-            name: `tisu ${i} by dina ${userId}`,
-            price: 10000 + (i * 10000),
+            name: `lolipop ${i} by loli ${userId}`,
+            price: 20000 + (i * 20000),
         });
+
+        console.log(`Creating product ${i} for user jebred${userId}`);
 
         const productRes = http.post(`${BASE_URL}/products`, productPayload, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            timeout: '350s',
+            timeout: '200s',
         });
+
+        console.log(`Create product response for VU ${userId}, product ${i}: ${productRes.status} - ${productRes.body}`);
 
         createProductResponseTime.add(productRes.timings.duration);
 
@@ -120,5 +132,5 @@ export default function () {
             console.log(`Create product failed for VU ${userId}, product ${i}: ${productRes.status} - ${productRes.body}`);
         }
     }
-    sleep(1);
+    sleep(2);
 }
